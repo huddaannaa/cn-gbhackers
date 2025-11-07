@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  gbhacker_scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rbtn/gbhacker-scraper:latest
+    environment:
+      # ---- Elasticsearch ----
+      ES_BASE_URL: "https://292cbfh3r39t4jfdzd5stm212ifz-es-cti.rabitanoor.com"   # or http://elasticsearch:9200 if using a compose ES
+      ES_INDEX: "airball_updates_gbhacker_cve"
+      ES_USERNAME: "elastic"
+      ES_PASSWORD: "6jCp0Wv87csF4s68sYgwgqDZETZxum8CHgaTEck75E2O3L02"
+      ES_VERIFY: "false"      # <- per your request
+      ES_BULK_CHUNK: "500"
+      # ---- Scraper tuning (optional) ----
+      # OVERRIDE via env if needed:
+      # CONFIG_* not strictly required; edit code for more.
+    volumes:
+      - ./data/archives:/app/archives
+    restart: "no"     # run-once; change to unless-stopped if you cron externally
+    # If your ES is on host DNS like es1.local, ensure the container can resolve it
+    # extra_hosts:
+    #   - "es1.local:192.168.1.50"
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.90.9.0/24
+          gateway: 10.90.9.1
+
