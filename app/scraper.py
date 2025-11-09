@@ -26,11 +26,12 @@ def _env_int(name, default):
         return int(os.getenv(name, str(default)))
     except Exception:
         return default
-
+        
+#https://gbhackers.com/category/hacks/cvevulnerability/page/%d/
 # ---------------- Config ----------------
 CONFIG = {
-    "information_source": "gbhacker_hacks_cvevulnerability",
-    "source_url_pattern": "https://gbhackers.com/category/hacks/cvevulnerability/page/%d/",
+    "information_source": "gbhacker_hacks",
+    "source_url_pattern": "https://gbhackers.com/category/hacks/page/%d/",
     "max_num_of_rows_to_crawl_on_page": 30,
     "max_num_of_pages_to_crawl": 1,  # upper bound for detect_last_page() scan
     "expand_link": True,
